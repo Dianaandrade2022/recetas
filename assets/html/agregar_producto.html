@@ -51,11 +51,7 @@
     </div>
 
     <script>
-        window.reload = function () {
-            if (!localStorage.getItem('usuario')) {
-                window.location.href = '../../index.html';
-            }
-        };
+        
         document.getElementById('productoForm').addEventListener('submit', function (event) {
             event.preventDefault();
 
@@ -77,7 +73,7 @@
 
             console.log(producto);
 
-            let request = indexedDB.open('NuevoProducto', 4);
+            let request = indexedDB.open('NuevoProducto',4);
 
 
 
