@@ -50,7 +50,7 @@
                             localStorage.removeItem('tiempo_bloqueo');
                             localStorage.setItem('usuario', JSON.stringify(usuario));
                             alert('Inicio de sesión exitoso');
-                            window.location.href = 'bienvenido.html';
+                            window.location.href = 'assets/html/bienvenido.html';
                         } else {
                             alert('Correo o contraseña incorrectos');
                             let intentos = parseInt(localStorage.getItem('intentos')) || 0;
