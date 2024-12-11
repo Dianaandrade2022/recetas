@@ -16,13 +16,12 @@
         return actions.order.create({
           purchase_units: [{
             amount: {
-              value: '10.00' // Monto de la compra
+              value: '10.00' 
             }
           }]
         });
       },
 
-      // Capturar el pago
       onApprove: function(data, actions) {
         return actions.order.capture().then(function(orderData) {
           // Manejar la confirmación del pago
@@ -31,7 +30,6 @@
         });
       },
 
-      // Manejar errores
       onError: function(err) {
         console.error('Error en PayPal:', err);
         alert('Ocurrió un error en el pago');

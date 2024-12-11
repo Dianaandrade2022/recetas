@@ -1,3 +1,4 @@
+
 const CACHE_NAME = 'Tienda_Online-v2';
 const urlsToCache = [
     '/',
