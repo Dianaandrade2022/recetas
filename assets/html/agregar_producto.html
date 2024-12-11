@@ -51,6 +51,11 @@
     </div>
 
     <script>
+        window.reload = function () {
+            if (!localStorage.getItem('usuario')) {
+                window.location.href = '../../index.html';
+            }
+        };
         document.getElementById('productoForm').addEventListener('submit', function (event) {
             event.preventDefault();
 
@@ -65,14 +70,19 @@
                 nombre: nombre,
                 content: content,
                 precio: parseFloat(precio),
-                descuento: parseInt(descuento, 10), 
+                descuento: parseInt(descuento, 10),
                 id_categoria: parseInt(id_categoria, 10),
                 activo: parseInt(activo, 10),
             };
 
+            console.log(producto);
+
             let request = indexedDB.open('NuevoProducto', 4);
 
+
+
             request.onupgradeneeded = function (event) {
+               
                 let db = event.target.result;
                 let objectStore = db.createObjectStore('productos', { keyPath: 'id', autoIncrement: true });
                 objectStore.createIndex('nombre', 'nombre', { unique: false });
@@ -81,6 +91,9 @@
                 objectStore.createIndex('descuento', 'descuento', { unique: false });
                 objectStore.createIndex('id_categoria', 'id_categoria', { unique: false });
                 objectStore.createIndex('activo', 'activo', { unique: false });
+                if (!db.objectStoreNames.contains('carrito')) {
+                    db.createObjectStore('carrito', { keyPath: 'id' });
+                }
             };
 
             request.onsuccess = function (event) {
@@ -89,8 +102,9 @@
                 let objectStore = transaction.objectStore('productos');
                 let request = objectStore.add(producto);
 
-                request.onsuccess = function () {
-                    alert('Producto guardado con éxito en IndexedDB');
+                request.onsuccess = function (event) {
+                    let nuevoId = event.target.result;
+                    alert('Producto guardado con éxito en IndexedDB con ID: ' + nuevoId);
                 };
 
                 request.onerror = function (event) {

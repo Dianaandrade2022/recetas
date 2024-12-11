@@ -48,18 +48,14 @@
 
     window.onload = function () {
       if(!localStorage.getItem('usuario')) {
-        window.location.href = 'index.html';
+        window.location.href = '../../index.html';
       }
       let request = indexedDB.open(dbName, 4);
 
-      request.onupgradeneeded = function (event) {
+      request.onsuccess = function (event) {
         db = event.target.result;
-        if (!db.objectStoreNames.contains('productos')) {
-          db.createObjectStore('productos', { keyPath: 'id' });
-        }
-        if (!db.objectStoreNames.contains('carrito')) {
-          db.createObjectStore('carrito', { keyPath: 'id' });
-        }
+        cargarProductos();
+        actualizarContadorCarrito();
       };
 
       request.onsuccess = function (event) {
