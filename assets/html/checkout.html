@@ -185,6 +185,8 @@
   <h1>Checkout</h1>
   <div id="carrito"></div>
 </body>
+<script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+
 <script>function gocar() {
       let transaction = db.transaction(['carrito'], 'readonly');
       let store = transaction.objectStore('carrito');
